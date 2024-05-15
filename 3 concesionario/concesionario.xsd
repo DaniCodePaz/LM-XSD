@@ -3,25 +3,55 @@
     <xs:element name="concesionario">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="coche" maxOccurs="unbounded" />
-                <xs:element ref="reserva" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="coche" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element ref="reserva" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="marca" type="xs:string" use="required" />
+            <xs:attribute name="marca" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="coche">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="modelo" maxOccurs="unbounded" />
+                <xs:element ref="modelo" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="nombre" type="xs:string" use="required" />
+            <xs:attribute name="nombre" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="modelo">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref=""></xs:element>
+                <xs:choice>
+                    <xs:element name="stock" type="xs:positiveInteger" />
+                    <xs:element name="km" type="xs:positiveInteger" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:element name="gasolina" >
+                        <xs:complexType/>
+                    </xs:element>
+                    <xs:element name="diesel">
+                        <xs:complexType/>
+                    </xs:element>
+                </xs:choice>
+                <xs:element name="cilindrada" type="xs:positiveInteger"/>
+                <xs:element name="puertas" type="xs:positiveInteger"/>
+                <xs:element name="caballos" type="xs:positiveInteger"/>
             </xs:sequence>
+            <xs:attribute name="referencia" type="xs:ID" use="required"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="reserva">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nombre" type="xs:string"/>
+                <xs:element name="direccion" type="xs:string" minOccurs="0"/>
+                <xs:element name="telefono" type="tipotelefono"/>
+            </xs:sequence>
+            <xs:attribute name="coche" type="xs:IDREFS" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="tipotelefono">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:pattern value="[679]\d{8}"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

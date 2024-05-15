@@ -3,8 +3,33 @@
     <xs:element name="jornada">
         <xs:complexType>
             <xs:sequence>
-                
+                <xs:element name="denominacion" type="xs:string" />
+                <xs:element name="categoria" type="xs:string" />
+                <xs:element ref="partido" maxOccurs="unbounded" />
             </xs:sequence>
+            <xs:attribute name="numero" type="xs:int" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="partido">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="local" />
+                <xs:element ref="visitante" />
+                <xs:element name="goleslocal" type="xs:integer"/>
+                <xs:element name="golesvisitante" type="xs:integer"/>
+            </xs:sequence>
+            <xs:attribute name="fecha" type="xs:date" use="required" />
+            <xs:attribute name="hora" type="xs:time" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="local">
+        <xs:complexType mixed="true">
+            <xs:attribute name="escudo" type="xs:integer" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="visitante">
+        <xs:complexType mixed="true">
+            <xs:attribute name="escudo" type="xs:integer" use="required" />
         </xs:complexType>
     </xs:element>
 </xs:schema>
